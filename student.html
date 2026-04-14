@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | Hostel Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <nav class="menu">
+        <div class="brand">
+        <span>Student<strong>Hub</strong></span>
+        </div>
+
+        <div class="section">
+            <button onclick="window.viewProfile()"><span></span> My Profile</button>
+            <button onclick="window.viewMyAttendance()"><span></span> Attendance History</button>
+        </div>
+
+        <div class="section">
+            <button onclick="window.addComplaint()"><span></span> File Complaint</button>
+        </div>
+        
+        <div class="profile">
+            <!-- <img id="userPhoto" src="https://ui-avatars.com/api/?background=a855f7&color=fff" alt="Profile"> -->
+            <!-- <div class="profile-info"> -->
+                <span id="userNameDisplay">Student Name</span>
+                <small id="userRoomDisplay">Room: Unassigned</small>
+            </div>
+             <button class="logout-btn" onclick="window.logout()">
+        Logout
+    </button>
+        </div>
+    </nav>
+
+    <main class="dashboard-body">
+        <header class="navbar">
+            <h2 id="viewTitle">Student Overview</h2>
+            <div class="date-display" id="currentDate"></div>
+        </header>
+
+        <div id="content" class="main-content">
+            <div class="card glass-card">
+                <h2>Hello, <span id="welcomeName">Student</span></h2>
+                <p>Welcome to your hostel portal. </p>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Security & Session Init
+        const session = JSON.parse(localStorage.getItem('currentUser'));
+        if (!session || session.role !== 'student') {
+            window.location.href = 'index.html';
+        } else {
+            document.getElementById('userNameDisplay').innerText = session.name;
+            document.getElementById('welcomeName').innerText = session.name.split(' ')[0];
+            document.getElementById('userRoomDisplay').innerText = session.room ? `Room: ${session.room}` : 'No Room Assigned';
+            document.getElementById('userPhoto').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(session.name)}&background=a855f7&color=fff`;
+            document.getElementById('currentDate').innerText = new Date().toDateString();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+/* ================= 1. ROOT & RESET ================= */
+:root {
+    --primary: #7c3aed;
+    --secondary: #ec4899;
+    --bg-main: #0f172a;
+    --bg-dark: rgba(15, 23, 42, 0.9);
+    --bg-card: rgba(15, 23, 42, 0.85);
+    --text-main: #ffffff;
+    --text-dim: #cbd5f5;
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #020617, #0f172a);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Center login page */
+body:not(:has(.menu)) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ================= 2. SIDEBAR ================= */
+.menu {
+    width: 280px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px 10px;
+    background: var(--bg-dark);
+    backdrop-filter: blur(30px);
+    border-right: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Scrollable section */
+.menu .section {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+/* Scrollbar */
+.menu .section::-webkit-scrollbar {
+    width: 5px;
+}
+
+.menu .section::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--primary), var(--secondary));
+    border-radius: 10px;
+}
+
+/* ================= BUTTONS ================= */
+.menu button {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 12px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-dim);
+    transition: var(--transition);
+}
+
+.menu button:hover {
+    transform: translateX(6px);
+    color: white;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+/* ================= PROFILE ================= */
+.profile {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: var(--bg-card);
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    justify-content: space-between;
+}
+
+.profile img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+/* Fix profile text */
+.profile-info {
+    flex: 1;
+    color: white;
+}
+
+/* Logout button FIX */
+.logout-btn {
+    display: inline-block;
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* ================= MAIN ================= */
+.dashboard-body {
+    margin-left: 280px;
+    padding: 40px;
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+/* ================= CARDS ================= */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 25px;
+    transition: var(--transition);
+}
+
+/* Fix ALL text inside cards */
+.card * {
+    color: #ffffff !important;
+}
+
+.card p {
+    color: var(--text-dim) !important;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* ================= INPUTS ================= */
+input, select, textarea {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.05);
+    color: white;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #94a3b8;
+}
+
+/* ================= BUTTONS ================= */
+.card button {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    opacity: 0.9;
+}
+
+/* Danger button */
+.btn-outline {
+    background: transparent !important;
+    border: 1px solid #ef4444 !important;
+    color: #f87171 !important;
+}
+
+.btn-outline:hover {
+    background: #ef4444 !important;
+    color: white !important;
+}
+
+/* ================= TABLE ================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    color: #94a3b8;
+    padding: 12px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+td {
+    color: #e2e8f0;
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ================= ANIMATION ================= */
+.main-content {
+    animation: fadeSlide 0.4s ease;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ================= RESPONSIVE FIX ================= */
+
+/* Tablet View */
+@media (max-width: 1024px) {
+
+    .menu {
+        width: 220px;
+    }
+
+    .dashboard-body {
+        margin-left: 220px;
+        padding: 20px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+
+    /* Sidebar becomes top bar */
+    .menu {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .menu .section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        overflow: visible;
+    }
+
+    .menu button {
+        width: auto;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    /* Profile adjust */
+    .profile {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    /* Main content full width */
+    .dashboard-body {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    /* Grid becomes single column */
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    /* Table scroll fix */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+    h1, h2, h3 {
+        font-size: 18px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    input, button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .menu button {
+        font-size: 11px;
+        padding: 8px;
+    }
+}
+/* ================= WORKER IMAGE STYLE ================= */
+
+/* Image inside table */
+td img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+}
+
+/* Image inside cards */
+.card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--secondary);
+    margin-top: 10px;
+}
+
+/* Hover effect */
+.card img:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+/* Default placeholder if no image */
+.no-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #94a3b8;
+}

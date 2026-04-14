@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Hostel Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+   <nav class="menu">
+
+    <div class="brand"> <h1>
+        Hostel PRO </h1>
+    </div>
+
+    <!-- 👇 THIS PART MUST BE .section -->
+    <div class="section">
+
+         <button onclick="window.showAddUser()">Add Student</button>
+        <button onclick="window.showUsers()">Manage Roles</button>
+        <button onclick="window.showAddRoom()">Add Room</button>
+        <button onclick="window.showRooms()">Assign Rooms</button>
+        <button onclick="window.showStudents()">Mark Attendance</button>
+        <button onclick="window.showAttendance()">Attendance Logs</button>
+        <button onclick="window.showComplaints()">Complaints</button>
+        <button onclick="window.showMonthlyPayments()">Monthly Payments</button>
+        <button onclick="window.showAttendanceReportUI()">Attendance CSV</button>
+        <button onclick="window.showCustomExport()">Payment CSV</button>
+    </div>
+    
+    <!--Profile stays fixed -->
+    <div class="profile">
+        <img src="..." alt="Profile">
+        <div class="profile-info">
+            <span id="adminName">Admin</span>
+        </div>
+        <button class="logout-btn" onclick="window.logout()">Logout</button>
+    </div>
+    </div>
+
+</nav>
+
+    <main class="dashboard-body">
+        <header class="navbar">
+            <h2 id="viewTitle">Dashboard Overview</h2>
+            <div class="date-display" id="currentDate"></div>
+        </header>
+
+        <div id="content" class="main-content">
+            <div class="welcome-banner">
+                <h1>Welcome back, Admin</h1>
+                <p>Select a category from the sidebar to manage your hostel operations.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Display current date in the header
+        document.getElementById('currentDate').innerText = new Date().toDateString();
+        
+        // Check if user is actually an admin, otherwise boot them to login
+        const session = JSON.parse(localStorage.getItem('currentUser'));
+        if (!session || session.role !== 'admin') {
+            window.location.href = 'index.html';
+        } else {
+            document.getElementById('adminName').innerText = session.name;
+        }
+    </script>
+</body>
+</html>

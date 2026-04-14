@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Hostel Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-card">
+        <h2>Welcome Back</h2>
+        <p>Enter your credentials to manage your stay</p>
+        
+        <input type="email" id="loginEmail" placeholder="Email Address">
+        <input type="password" id="loginPass" placeholder="Password">
+        
+        <button onclick="handleLogin()">Sign In</button>
+        
+        <div style="margin-top: 20px; font-size: 12px; color: var(--text-dim);">
+            Default Admin: admin@pro.com | Pass: admin123
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPass').value;
+            window.login(email, pass);
+        }
+    </script>
+</body>
+</html>
