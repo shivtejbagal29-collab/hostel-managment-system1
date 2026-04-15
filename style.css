@@ -1,4 +1,103 @@
-/* ================= 1. ROOT & RESET ================= */
+
+/* ================= LOGIN PAGE ================= */
+
+body.login-page {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #020617, #0f172a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Container */
+.login-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Card */
+.glass-card {
+    width: 100%;
+    max-width: 350px;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255,255,255,0.15);
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Heading */
+.glass-card h2 {
+    margin-bottom: 10px;
+}
+
+/* Subtext */
+.glass-card p {
+    font-size: 14px;
+    color: #cbd5f5;
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+.glass-card input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+    color: white;
+}
+
+/* Focus */
+.glass-card input:focus {
+    outline: none;
+    border: 1px solid #7c3aed;
+    box-shadow: 0 0 8px rgba(124,58,237,0.6);
+}
+
+/* Button */
+.glass-card button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Hover */
+.glass-card button:hover {
+    transform: scale(1.03);
+}
+
+/* Footer */
+.login-footer {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #cbd5f5;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 480px) {
+    .glass-card {
+        padding: 20px;
+    }
+
+    .glass-card h2 {
+        font-size: 20px;
+    }
+}/* ================= 1. ROOT & RESET ================= */
 :root {
     --primary: #7c3aed;
     --secondary: #ec4899;
@@ -371,4 +470,136 @@ td img {
     justify-content: center;
     font-size: 12px;
     color: #94a3b8;
+}
+/* ================= MOBILE UI FIX ================= */
+@media (max-width: 768px) {
+
+    /* ===== BODY ===== */
+    body.login-page {
+        padding: 15px;
+    }
+
+    /* ===== LOGIN CARD ===== */
+    .glass-card {
+        width: 100%;
+        max-width: 350px;
+        padding: 20px;
+    }
+
+    /* ===== SIDEBAR → TOP NAV ===== */
+    .menu {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    /* Brand center */
+    .brand {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    /* Buttons container */
+    .menu .section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    /* Buttons become small pills */
+    .menu button {
+        width: auto;
+        padding: 8px 12px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    /* Remove slide effect */
+    .menu button:hover {
+        transform: none;
+    }
+
+    /* ===== PROFILE ===== */
+    .profile {
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+    }
+
+    .logout-btn {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .dashboard-body {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+        padding: 15px;
+    }
+
+    /* ===== BUTTON GROUP FIX ===== */
+    .actions {
+        flex-direction: column;
+    }
+
+    .actions button {
+        width: 100%;
+    }
+
+    /* ===== TABLE FIX ===== */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    /* ===== INPUTS ===== */
+    input, select, textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    /* ===== GRID ===== */
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================= EXTRA SMALL DEVICES ================= */
+@media (max-width: 480px) {
+
+    h1, h2, h3 {
+        font-size: 18px;
+    }
+
+    .menu button {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+
+    .glass-card {
+        padding: 18px;
+    }
 }
