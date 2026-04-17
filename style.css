@@ -37,7 +37,105 @@ body.login-page {
 .glass-card h2 {
     margin-bottom: 10px;
 }
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: linear-gradient(180deg, #020617, #0f172a);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
+/* LOGO */
+.logo {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* MENU */
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* BUTTONS */
+.menu button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    color: #cbd5e1;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* HOVER */
+.menu button:hover {
+    background: rgba(255,255,255,0.08);
+    color: white;
+}
+
+/* ACTIVE BUTTON (LIKE YOUR IMAGE) */
+.menu button.active {
+    background: linear-gradient(90deg, #7c3aed, #ec4899);
+    color: white;
+    box-shadow: 0 0 10px rgba(236, 72, 153, 0.4);
+    border: none;
+}
+
+/* PROFILE BOX */
+.profile-box {
+    background: rgba(255,255,255,0.04);
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* PROFILE INFO */
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-info img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.profile-info p {
+    margin: 0;
+    color: white;
+    font-size: 14px;
+}
+
+.profile-info small {
+    color: #94a3b8;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: #ef4444;
+}
 /* Subtext */
 .glass-card p {
     font-size: 14px;

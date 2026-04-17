@@ -1,6 +1,4 @@
-// ==========================================
 // 1. DATA INITIALIZATION & PERSISTENCE
-// ==========================================
 
 // Initialize data from localStorage or set defaults
 let users = JSON.parse(localStorage.getItem('users')) || [
@@ -16,11 +14,31 @@ const saveAll = () => {
     localStorage.setItem('rooms', JSON.stringify(rooms));
     localStorage.setItem('attendanceLogs', JSON.stringify(attendanceLogs));
     localStorage.setItem('complaints', JSON.stringify(complaints));
-};
+    const refreshCurrentUser = () => {
+    const current = JSON.parse(localStorage.getItem('currentUser'));
+    if (!current) return;
 
-// ==========================================
+    const updated = users.find(u => u.id === current.id);
+    if (updated) {
+        localStorage.setItem('currentUser', JSON.stringify(updated));
+    }
+};
+    new Date().toLocaleDateString();
+    function toggleSidebar() {
+    document.querySelector('.menu').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+};
+const refreshCurrentUser = () => {
+    const current = JSON.parse(localStorage.getItem('currentUser'));
+    if (!current) return;
+
+    const updated = users.find(u => u.id === current.id);
+    if (updated) {
+        localStorage.setItem('currentUser', JSON.stringify(updated));
+    }
+};
 // 2. HELPER FUNCTIONS (REUSABLE LOGIC)
-// ==========================================
 
 // Returns user photo or a generated avatar if empty
 const getUserImage = (user) => {
@@ -53,9 +71,7 @@ const calculatePayment = (user, month = getCurrentMonth()) => {
     return { total, paid, due: total - paid };
 };
 
-// ==========================================
 // 3. AUTHENTICATION SYSTEM
-// ==========================================
 
 // Handle login and redirect based on role
 window.login = (email, pass) => {
@@ -74,9 +90,7 @@ window.logout = () => {
     window.location.href = 'index.html';
 };
 
-// ==========================================
 // 4. USER MANAGEMENT (ADMIN ONLY)
-// ==========================================
 
 // Render list of all users with role controls
 window.showUsers = () => {
@@ -163,9 +177,7 @@ window.deleteUser = (id) => {
     }
 };
 
-// ==========================================
 // 5. ROOM MANAGEMENT
-// ==========================================
 
 // Form to create new hostel rooms
 window.showAddRoom = () => {
@@ -234,9 +246,7 @@ window.deleteRoom = (id) => {
     window.showRooms();
 };
 
-// ==========================================
 // 6. ATTENDANCE SYSTEM
-// ==========================================
 
 // UI for marking daily attendance
 // Toggle Dropdown Visibility
@@ -283,30 +293,31 @@ window.generateFilteredAttendance = () => {
 
     let filtered = attendanceLogs;
 
-    // Filter by Student
+    // Filter by student
     if (studentId !== 'all') {
         filtered = filtered.filter(log => log.studentId === studentId);
     }
 
-    // Filter by Date Range
+    // Filter by date
     if (start && end) {
-        const sDate = new Date(start);
-        const eDate = new Date(end);
         filtered = filtered.filter(log => {
-            const logDate = new Date(log.date);
-            return logDate >= sDate && logDate <= eDate;
+            return log.date >= start && log.date <= end;
         });
     }
 
-    if (filtered.length === 0) return alert("No records found for these filters.");
+    if (filtered.length === 0) {
+        alert("No records found for these filters.");
+        return;
+    }
 
     let rows = [["Date", "Student Name", "Status"]];
+
     filtered.forEach(log => {
         const user = users.find(u => u.id === log.studentId);
         rows.push([log.date, user?.name || "Unknown", log.status]);
     });
 
-    downloadCSV(`Attendance_Report_${new Date().toLocaleDateString()}.csv`, rows);
+    downloadCSV("Attendance_Report.csv", rows);
 };
 
 // Close dropdowns if user clicks outside
@@ -344,7 +355,7 @@ window.showStudents = () => {
 window.markAt = (id, status) => {
     attendanceLogs.push({
         studentId: id,
-        date: new Date().toLocaleDateString(),
+        date: new Date().toISOString().split('T')[0],
         status
     });
     saveAll();
@@ -362,9 +373,7 @@ window.showAttendance = () => {
     document.getElementById('content').innerHTML = html + `</table></div>`;
 };
 
-// ==========================================
 // 7. PAYMENT SYSTEM (ADMIN)
-// ==========================================
 
 // UI for managing and viewing monthly dues
 window.showMonthlyPayments = () => {
@@ -396,9 +405,7 @@ window.payMonthly = (id, month) => {
     window.showMonthlyPayments();
 };
 
-// ==========================================
 // 8. STUDENT FEATURES
-// ==========================================
 
 // Helper to get logged-in session data
 const getCurrentStudent = () => JSON.parse(localStorage.getItem('currentUser'));
@@ -430,17 +437,30 @@ window.viewMyAttendance = () => {
 
 // Submit a grievance
 window.submitComplaint = () => {
-    const text = document.getElementById('complaintText').value;
+    const textEl = document.getElementById('complaintText');
+    if (!textEl) return alert("Complaint box not found!");
+
+    const text = textEl.value.trim();
     if (!text) return alert("Please enter details");
+
     const user = getCurrentStudent();
-    complaints.push({ id: Date.now(), studentId: user.id, studentName: user.name, text, status: "Pending" });
+    if (!user) return alert("User not logged in");
+
+    complaints.push({
+        id: Date.now(),
+        studentId: user.id,
+        studentName: user.name,
+        text,
+        status: "Pending",
+        date: new Date().toLocaleDateString()
+    });
+
     saveAll();
-    alert("Complaint Submitted");
+    textEl.value = "";
+    alert("Complaint Submitted Successfully");
 };
 
-// ==========================================
 // 9. EXPORT & REPORTING SYSTEM (CSV)
-// ==========================================
 
 // Core CSV download trigger
 const downloadCSV = (filename, rows) => {
@@ -490,8 +510,8 @@ window.downloadCustomCSV = () => {
     users.filter(u => u.role === 'student').forEach(u => {
         let row = [];
         const { due } = calculatePayment(u, month);
-        const attCount = attendanceLogs.filter(l => l.studentId === u.id && l.date.includes(month)).length;
-        
+        const attCount = attendanceLogs.filter(l => 
+    l.studentId === u.id && l.date.startsWith(month)).length;
         if (document.getElementById('f_name').checked) row.push(u.name);
         if (document.getElementById('f_room').checked) row.push(u.room || "N/A");
         if (document.getElementById('f_due').checked) row.push(due);
@@ -501,9 +521,7 @@ window.downloadCustomCSV = () => {
     downloadCSV("custom_report.csv", rows);
 };
 
-// ==========================================
 // 10. INITIALIZATION & DROPDOWNS
-// ==========================================
 
 // Populate student selectors on load
 window.loadStudentDropdown = () => {
@@ -517,9 +535,7 @@ window.loadStudentDropdown = () => {
 window.onload = () => {
     loadStudentDropdown();
 };
-// ==========================================
 // COMPLAINTS MANAGEMENT (ADMIN VIEW)
-// ==========================================
 window.showComplaints = () => {
     document.getElementById('viewTitle').innerText = "Student Complaints";
     
@@ -558,14 +574,15 @@ window.showComplaints = () => {
 
 // Update status (Pending -> Resolved)
 window.updateComplaintStatus = (id, newStatus) => {
-    const complaint = complaints.find(c => c.id === id);
-    if (complaint) {
-        complaint.status = newStatus;
-        saveAll();
-        window.showComplaints();
-    }
-};
+    const complaint = complaints.find(c => c.id == id); // use == not ===
+    if (!complaint) return alert("Complaint not found");
 
+    complaint.status = newStatus;
+    saveAll();
+
+    alert("Marked as Resolved");
+    showComplaints();
+};
 // Remove a complaint
 window.deleteComplaint = (id) => {
     if (confirm("Remove this complaint record?")) {
